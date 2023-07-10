@@ -1,0 +1,65 @@
+@import "../../config.scss";
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-body {
+  &__line {
+    white-space: nowrap;
+    overflow: hidden;
+    transition: 0.2s;
+    border: 1px solid #383748;
+    cursor: pointer;
+    &:hover {
+      background: $secondary-clr;
+    }
+  }
+  &__column {
+    padding-top: 0.98rem;
+    padding-bottom: 0.98rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 20px;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+    &:first-child {
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+    &:last-child {
+      border-bottom-right-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+  }
+}
+
+.table-header {
+  &__line {
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: $secondary-clr;
+    border-radius: 10px;
+  }
+  &__column {
+    text-align: center;
+    padding: 0.88rem 0;
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 14px;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+    &:first-child {
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+    &:last-child {
+      border-bottom-right-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+  }
+}

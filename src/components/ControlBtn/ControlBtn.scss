@@ -1,0 +1,21 @@
+@import "../../config.scss";
+
+.control-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+  color: #fff;
+  gap: 5px;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+  &:hover .control-btn__add-mark {
+    color: $success-clr;
+  }
+  &:hover .control-btn__delete-mark {
+    color: $fall-clr;
+  }
+}

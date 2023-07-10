@@ -1,0 +1,1 @@
+export { ModalAddCrypto } from "./ModalAddCrypto";

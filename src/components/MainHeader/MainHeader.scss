@@ -1,0 +1,41 @@
+@import "../../config.scss";
+
+.main-header {
+  padding-top: 10px;
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.main-header-logo {
+  display: flex;
+  align-items: center;
+  &__name {
+    font-size: 25px;
+  }
+}
+
+.main-header-top-coins {
+  display: flex;
+  list-style-type: none;
+  gap: 15px;
+  &__coin {
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover {
+      color: $primary-clr;
+    }
+  }
+}
+
+.main-header-bag {
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+  color: #fff;
+  &__cost span {
+    color: $success-clr;
+  }
+}

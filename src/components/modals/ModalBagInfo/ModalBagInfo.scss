@@ -1,0 +1,62 @@
+@import "../../../config.scss";
+
+.modal-bag {
+  background-color: $secondary-clr;
+  padding: 10px 30px 20px 30px;
+  border-radius: 10px;
+  flex-basis: 600px;
+  position: relative;
+  &__close-btn {
+    background-color: inherit;
+    position: absolute;
+    right: 2%;
+    top: 3%;
+    &:hover path {
+      transition: 0.2s;
+      fill: $fall-clr;
+    }
+  }
+}
+
+.modal-bag-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__bag-price {
+    display: flex;
+    align-items: center;
+  }
+  &__price span {
+    color: $success-clr;
+  }
+}
+
+.modal-bag-items {
+  padding-top: 5px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+  max-height: 400px;
+  &__item {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    transition: 0.2s;
+    &:hover {
+      background-color: $background-clr;
+      cursor: pointer;
+    }
+  }
+  &__item-name {
+    flex-basis: 170px;
+    padding-left: 10px;
+  }
+  &__item-quantity {
+    flex-basis: 140px;
+  }
+  &__item-price {
+    flex-basis: 180px;
+  }
+}

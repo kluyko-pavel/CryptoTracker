@@ -1,0 +1,1 @@
+export { ModalBagInfo } from "./ModalBagInfo";
