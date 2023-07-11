@@ -12,6 +12,8 @@
 .main-header-logo {
   display: flex;
   align-items: center;
+  background-color: inherit;
+  color: #fff;
   &__name {
     font-size: 25px;
   }

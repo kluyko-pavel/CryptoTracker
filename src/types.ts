@@ -3,6 +3,16 @@ export interface ICryptoResponse {
   timestamp: number;
 }
 
+export interface ISelectedCryptoResponse {
+  data: ICryptoInfo;
+  timestamp: number;
+}
+
+export interface IChartInfoResponse {
+  data: IChartInfo[];
+  timestamp: number;
+}
+
 export interface ICryptoInfo {
   id: string;
   rank: string;

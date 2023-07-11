@@ -2,14 +2,12 @@
 
 .pagination {
   padding: 1rem 0;
-  max-width: 31.2rem;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   gap: 1.25rem;
   &__el {
     transition: 0.2s;
-    font-size: 17px;
     color: $primary-clr;
     background-color: inherit;
     border-radius: 13px;
@@ -22,12 +20,4 @@
       fill: grey;
     }
   }
-}
-.pagination-container {
-  display: flex;
-  gap: 16px;
-}
-.active {
-  color: #fff;
-  background-color: $primary-clr;
 }

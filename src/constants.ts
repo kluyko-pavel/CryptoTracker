@@ -1,5 +1,7 @@
 import { IChartInfo, ICryptoInfo } from "./types";
 
+export const CRYPTO_INFO_URL = "https://api.coincap.io/v2/assets";
+
 export const cryptoData: ICryptoInfo[] = [
   {
     id: "bitcoin",

@@ -1,10 +1,15 @@
 // import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { ICryptoInfo } from "../../types";
 import { ControlBtn } from "../ControlBtn";
 import "./Table.scss";
+import { CryptoContext } from "../../CryptoContext";
+import { useNavigate } from "react-router-dom";
 
-export const Table = ({ data }: { data: ICryptoInfo[] }) => {
-  //   const navigate = useNavigate();
+export const Table = () => {
+  const { cryptos } = useContext(CryptoContext);
+
+  const navigate = useNavigate();
 
   return (
     <table className="table">
@@ -20,11 +25,11 @@ export const Table = ({ data }: { data: ICryptoInfo[] }) => {
         </tr>
       </thead>
       <tbody className="table-body">
-        {data.map((el: ICryptoInfo) => (
+        {cryptos.map((el: ICryptoInfo) => (
           <tr
             key={el.rank}
             className="table-body__line"
-            // onClick={() => navigate("")}
+            onClick={() => navigate(`/${el.id}`)}
           >
             <td className="table-body__column">{el.rank}</td>
             <td className="table-body__column">{el.name}</td>

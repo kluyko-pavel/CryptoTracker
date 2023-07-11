@@ -1,5 +1,5 @@
 import "./Chart.scss";
-import { useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,36 +13,37 @@ import {
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { IChartInfo } from "../../types";
-import { chartData } from "../../constants";
+import { CryptoContext } from "../../CryptoContext";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-  },
-  ticks: {
-    maxTicksLimit: 8,
-  },
-};
-
-export const Chart = () => {
-  const [chartInfo, setChartInfo] = useState([] as IChartInfo[]);
+export const Chart = ({ id, interval }: { id: string; interval: string }) => {
+  const { getChartInfo, chartInfo } = useContext(CryptoContext);
 
   useEffect(() => {
-    setChartInfo(chartData);
-  }, []);
+    getChartInfo(id, interval);
+  }, [interval]);
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+    },
+    ticks: {
+      maxTicksLimit: 8,
+    },
+  };
+
   const labels = chartInfo.map((el: IChartInfo) =>
     moment(el.date).format("DD.MM.YYYY")
   );

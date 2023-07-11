@@ -12,6 +12,8 @@
     transition: 0.2s;
     border: 1px solid #383748;
     cursor: pointer;
+    border-radius: 10px;
+
     &:hover {
       background: $secondary-clr;
     }
@@ -25,14 +27,6 @@
     line-height: 20px;
     &::first-letter {
       text-transform: capitalize;
-    }
-    &:first-child {
-      border-bottom-left-radius: 10px;
-      border-top-left-radius: 10px;
-    }
-    &:last-child {
-      border-bottom-right-radius: 10px;
-      border-top-right-radius: 10px;
     }
   }
 }
