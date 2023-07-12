@@ -22,13 +22,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  &__bag-price {
-    display: flex;
-    align-items: center;
-  }
-  &__price span {
-    color: $success-clr;
-  }
 }
 
 .modal-bag-items {

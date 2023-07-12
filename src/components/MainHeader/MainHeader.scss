@@ -7,6 +7,9 @@
     justify-content: space-between;
     align-items: center;
   }
+  &__bag {
+    background-color: inherit;
+  }
 }
 
 .main-header-logo {
@@ -29,15 +32,5 @@
     &:hover {
       color: $primary-clr;
     }
-  }
-}
-
-.main-header-bag {
-  display: flex;
-  align-items: center;
-  background-color: inherit;
-  color: #fff;
-  &__cost span {
-    color: $success-clr;
   }
 }

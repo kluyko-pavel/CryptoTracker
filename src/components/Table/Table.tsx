@@ -1,19 +1,32 @@
-// import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ICryptoInfo } from "../../types";
 import { ControlBtn } from "../ControlBtn";
 import "./Table.scss";
 import { CryptoContext } from "../../CryptoContext";
 import { useNavigate } from "react-router-dom";
+import { ModalAddCrypto } from "../modals";
 
 export const Table = () => {
-  const { cryptos } = useContext(CryptoContext);
+  const {
+    cryptos,
+    isShowCryptoModal,
+    selectedCrypto,
+    toggleCryptoModal,
+    getSelectedCrypto,
+  } = useContext(CryptoContext);
 
   const navigate = useNavigate();
+
+  const handleControlBtn = (e: any, selectedCrypto: string) => {
+    e.stopPropagation();
+    toggleCryptoModal(true);
+    getSelectedCrypto(selectedCrypto);
+  };
 
   return (
     <table className="table">
       <thead className="table-header">
+        {isShowCryptoModal && <ModalAddCrypto crypto={selectedCrypto} />}
         <tr className="table-header__line">
           <th className="table-header__column">rank</th>
           <th className="table-header__column">name</th>
@@ -51,7 +64,12 @@ export const Table = () => {
               {Number(el.supply).toFixed(3)} $
             </td>
             <td className="table-body__column">
-              {<ControlBtn action="add" />}
+              {
+                <ControlBtn
+                  action="add"
+                  onClick={(e: any) => handleControlBtn(e, el.id)}
+                />
+              }
             </td>
           </tr>
         ))}

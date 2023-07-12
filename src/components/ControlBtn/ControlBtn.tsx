@@ -1,13 +1,16 @@
+import { MouseEventHandler } from "react";
 import { BagIcon } from "../icons";
 import "./ControlBtn.scss";
 
-export const ControlBtn = ({ action }: { action: string }) => {
-  const handleControlBtn = (e: any) => {
-    e.stopPropagation();
-  };
-
+export const ControlBtn = ({
+  action,
+  onClick,
+}: {
+  action: string;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}) => {
   return (
-    <button className="control-btn" onClick={handleControlBtn}>
+    <button className="control-btn" onClick={onClick}>
       <span
         className={
           action === "add"

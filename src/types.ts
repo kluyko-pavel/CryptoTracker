@@ -25,6 +25,7 @@ export interface ICryptoInfo {
   priceUsd: string;
   changePercent24Hr: string;
   vwap24Hr: string;
+  quantity?: number;
 }
 
 export interface IChartInfo {

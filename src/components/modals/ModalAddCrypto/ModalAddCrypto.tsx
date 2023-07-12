@@ -1,10 +1,19 @@
 import "./ModalAddCrypto.scss";
 import { ICryptoInfo } from "../../../types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ControlBtn } from "../../ControlBtn";
+import { CryptoContext } from "../../../CryptoContext";
 
 export const ModalAddCrypto = ({ crypto }: { crypto: ICryptoInfo }) => {
+  const { toggleCryptoModal, addToBag } = useContext(CryptoContext);
+
   const [quantity, setQuantity] = useState(0);
+
+  const handleAddCryptoToBag = () => {
+    const cryptoBag = { ...crypto, quantity };
+    addToBag(cryptoBag);
+    toggleCryptoModal(false);
+  };
 
   return (
     <div className="modal-wrapper">
@@ -31,8 +40,13 @@ export const ModalAddCrypto = ({ crypto }: { crypto: ICryptoInfo }) => {
           </span>
         </div>
         <div className="modal-crypto__buttons">
-          <button className="modal-crypto__close-btn">Close</button>
-          <ControlBtn action="add" />
+          <button
+            className="modal-crypto__close-btn"
+            onClick={() => toggleCryptoModal(false)}
+          >
+            Close
+          </button>
+          <ControlBtn action="add" onClick={handleAddCryptoToBag} />
         </div>
       </div>
     </div>

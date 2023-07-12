@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Chart } from "../../components";
 
 export const SelectedCryptoPage = () => {
-  const [interval, setInterval] = useState("h1");
+  const [interval, setInterval] = useState("d1");
   const { cryptoId } = useParams();
   const { getSelectedCrypto, selectedCrypto } = useContext(CryptoContext);
 

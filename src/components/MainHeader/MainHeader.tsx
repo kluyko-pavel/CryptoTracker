@@ -1,12 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import { BagIcon, LogoIcon } from "../icons";
+import { LogoIcon } from "../icons";
+import { useContext } from "react";
 import "./MainHeader.scss";
+import { CryptoContext } from "../../CryptoContext";
+import { ICryptoInfo } from "../../types";
+import { Bag } from "../Bag";
+import { ModalBagInfo } from "../modals";
 
 export const MainHeader = () => {
   const navigate = useNavigate();
+  const { cryptos, isShowBagModal, toggleBagModal } = useContext(CryptoContext);
+
+  const handleNavigateToCoin = (el: ICryptoInfo) => {
+    navigate(`/${el.id}`);
+    window.location.reload();
+  };
 
   return (
     <header className="main-header">
+      {isShowBagModal && <ModalBagInfo />}
       <div className="container">
         <div className="main-header__inner">
           <button className="main-header-logo" onClick={() => navigate("/")}>
@@ -14,15 +26,24 @@ export const MainHeader = () => {
             <span className="main-header-logo__name">CryptoTracker</span>
           </button>
           <ul className="main-header-top-coins">
-            <li className="main-header-top-coins__coin">BTC $23423.234</li>
-            <li className="main-header-top-coins__coin">AUT $23423.234</li>
-            <li className="main-header-top-coins__coin">ERR $23423.234</li>
+            {cryptos.map(
+              (el: ICryptoInfo, i) =>
+                i < 3 && (
+                  <li
+                    key={el.rank}
+                    className="main-header-top-coins__coin"
+                    onClick={() => handleNavigateToCoin(el)}
+                  >
+                    {el.name} ${Number(el.priceUsd).toFixed(3)}
+                  </li>
+                )
+            )}
           </ul>
-          <button className="main-header-bag">
-            <div className="main-header-bag__cost">
-              134,32 USD <span>+2,38 (1,80 %)</span>
-            </div>
-            <BagIcon />
+          <button
+            className="main-header__bag"
+            onClick={() => toggleBagModal(true)}
+          >
+            <Bag />
           </button>
         </div>
       </div>

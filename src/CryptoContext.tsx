@@ -13,6 +13,8 @@ export const CryptoContext = createContext({
   cryptos: [] as ICryptoInfo[],
   currentPage: 1,
   isLoading: false,
+  isShowBagModal: false,
+  isShowCryptoModal: false,
   chartInfo: [] as IChartInfo[],
   bag: [] as ICryptoInfo[],
   changeCurrentPage: (currentPage: number) => {},
@@ -20,6 +22,8 @@ export const CryptoContext = createContext({
   removeFromBag: (crypto: ICryptoInfo) => {},
   getSelectedCrypto: (id: string) => {},
   getChartInfo: (id: string, interval: string) => {},
+  toggleBagModal: (state: boolean) => {},
+  toggleCryptoModal: (state: boolean) => {},
 });
 
 export const CryptoProvider = ({ children }: { children: any }) => {
@@ -27,6 +31,8 @@ export const CryptoProvider = ({ children }: { children: any }) => {
   const [cryptos, setCryptos] = useState([] as ICryptoInfo[]);
   const [bag, setBag] = useState([] as ICryptoInfo[]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowBagModal, setIsShowBagModal] = useState(false);
+  const [isShowCryptoModal, setIsShowCryptoModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [chartInfo, setChartInfo] = useState([] as IChartInfo[]);
 
@@ -86,6 +92,13 @@ export const CryptoProvider = ({ children }: { children: any }) => {
     fetchChart(id, interval);
   };
 
+  const toggleBagModal = (state: boolean) => {
+    setIsShowBagModal(state);
+  };
+  const toggleCryptoModal = (state: boolean) => {
+    setIsShowCryptoModal(state);
+  };
+
   return (
     <CryptoContext.Provider
       value={{
@@ -95,6 +108,10 @@ export const CryptoProvider = ({ children }: { children: any }) => {
         currentPage,
         bag,
         isLoading,
+        isShowBagModal,
+        isShowCryptoModal,
+        toggleBagModal,
+        toggleCryptoModal,
         getChartInfo,
         changeCurrentPage,
         addToBag,
