@@ -1,3 +1,35 @@
+@import "../../config.scss";
+
 .selected-page {
-  padding-top: 2rem;
+  padding-top: 1.5rem;
+}
+.selected-page-tools {
+  display: flex;
+  justify-content: space-between;
+}
+.selected-page-tools-main {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.selected-page-info {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  &__parameters {
+    background-color: $secondary-clr;
+    border-radius: 10px;
+    max-height: 210px;
+    padding: 20px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &__parameters-param {
+    color: $primary-clr;
+  }
+  &__parameters-param span {
+    color: #fff;
+  }
 }

@@ -1,102 +1,71 @@
-import { createContext, useState, useEffect } from "react";
-import { CRYPTO_INFO_URL } from "./constants";
-import {
-  IChartInfo,
-  IChartInfoResponse,
-  ICryptoInfo,
-  ICryptoResponse,
-  ISelectedCryptoResponse,
-} from "./types";
+import { createContext, useState, useEffect, ReactNode } from "react";
+import { IChartInfo, ICryptoContextProps, ICryptoInfo } from "./types";
+import { fetchChart, fetchCryptos, fetchSelectedCrypto } from "./apiLogic";
+import { getItemInitialState } from "./utils";
 
-export const CryptoContext = createContext({
+export const CryptoContext = createContext<ICryptoContextProps>({
   selectedCrypto: {} as ICryptoInfo,
   cryptos: [] as ICryptoInfo[],
   currentPage: 1,
   isLoading: false,
-  isShowBagModal: false,
-  isShowCryptoModal: false,
   chartInfo: [] as IChartInfo[],
   bag: [] as ICryptoInfo[],
-  changeCurrentPage: (currentPage: number) => {},
-  addToBag: (crypto: ICryptoInfo) => {},
-  removeFromBag: (crypto: ICryptoInfo) => {},
-  getSelectedCrypto: (id: string) => {},
-  getChartInfo: (id: string, interval: string) => {},
-  toggleBagModal: (state: boolean) => {},
-  toggleCryptoModal: (state: boolean) => {},
+  changeCurrentPage: (currentPage: number): void => {},
+  addToBag: (crypto: ICryptoInfo): void => {},
+  removeFromBag: (crypto: ICryptoInfo): void => {},
+  getSelectedCrypto: (id: string): Promise<void> => Promise.resolve(),
+  getChartInfo: (id: string, interval: string): Promise<void> =>
+    Promise.resolve(),
 });
 
-export const CryptoProvider = ({ children }: { children: any }) => {
-  const [selectedCrypto, setSelectedCrypto] = useState({} as ICryptoInfo);
-  const [cryptos, setCryptos] = useState([] as ICryptoInfo[]);
-  const [bag, setBag] = useState([] as ICryptoInfo[]);
+export const CryptoProvider = ({ children }: { children: ReactNode }) => {
+  const [selectedCrypto, setSelectedCrypto] = useState<ICryptoInfo>(
+    {} as ICryptoInfo
+  );
+  const [cryptos, setCryptos] = useState<ICryptoInfo[]>([]);
+  const [bag, setBag] = useState<ICryptoInfo[]>(getItemInitialState("bag"));
   const [isLoading, setIsLoading] = useState(false);
-  const [isShowBagModal, setIsShowBagModal] = useState(false);
-  const [isShowCryptoModal, setIsShowCryptoModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [chartInfo, setChartInfo] = useState([] as IChartInfo[]);
+  const [chartInfo, setChartInfo] = useState<IChartInfo[]>([]);
 
   useEffect(() => {
-    const fetchCryptos = async (limit: number, currentPage: number) => {
+    const fetchCryptosData = async () => {
       setIsLoading(true);
-      const resp: Response = await fetch(
-        `${CRYPTO_INFO_URL}?limit=${limit}&offset=${(currentPage - 1) * limit}`
-      );
-      if (resp.ok) {
-        const res: ICryptoResponse = await resp.json();
-        setCryptos(res.data);
-      }
+      const data = await fetchCryptos(10, currentPage);
+      setCryptos(data);
       setIsLoading(false);
     };
 
-    fetchCryptos(10, currentPage);
+    fetchCryptosData();
   }, [currentPage]);
 
-  const fetchSelectedCrypto = async (id: string) => {
+  const getSelectedCrypto = async (id: string): Promise<void> => {
     setIsLoading(true);
-    const resp: Response = await fetch(`${CRYPTO_INFO_URL}/${id}`);
-    if (resp.ok) {
-      const res: ISelectedCryptoResponse = await resp.json();
-      setSelectedCrypto(res.data);
-    }
+    const data = await fetchSelectedCrypto(id);
+    setSelectedCrypto(data);
     setIsLoading(false);
   };
 
-  const fetchChart = async (id: string, interval: string) => {
-    const resp: Response = await fetch(
-      `${CRYPTO_INFO_URL}/${id}/history?interval=${interval}`
-    );
-    if (resp.ok) {
-      const res: IChartInfoResponse = await resp.json();
-      setChartInfo(res.data);
-    }
+  const getChartInfo = async (id: string, interval: string): Promise<void> => {
+    const data = await fetchChart(id, interval);
+    setChartInfo(data);
   };
 
-  const getSelectedCrypto = async (id: string) => {
-    await fetchSelectedCrypto(id);
-  };
-
-  const addToBag = (crypto: ICryptoInfo) => {
+  const addToBag = (crypto: ICryptoInfo): void => {
     setBag([...bag, crypto]);
+    localStorage.setItem("bag", JSON.stringify([...bag, crypto]));
   };
 
-  const removeFromBag = (crypto: ICryptoInfo) => {
+  const removeFromBag = (crypto: ICryptoInfo): void => {
     setBag(bag.filter((item: ICryptoInfo) => item.id !== crypto.id));
+    localStorage.setItem(
+      "bag",
+      JSON.stringify(bag.filter((item: ICryptoInfo) => item.id !== crypto.id))
+    );
   };
 
-  const changeCurrentPage = (currentPage: number) => {
+  const changeCurrentPage = (currentPage: number): void => {
     setCurrentPage(currentPage);
-  };
-
-  const getChartInfo = (id: string, interval: string) => {
-    fetchChart(id, interval);
-  };
-
-  const toggleBagModal = (state: boolean) => {
-    setIsShowBagModal(state);
-  };
-  const toggleCryptoModal = (state: boolean) => {
-    setIsShowCryptoModal(state);
   };
 
   return (
@@ -108,10 +77,6 @@ export const CryptoProvider = ({ children }: { children: any }) => {
         currentPage,
         bag,
         isLoading,
-        isShowBagModal,
-        isShowCryptoModal,
-        toggleBagModal,
-        toggleCryptoModal,
         getChartInfo,
         changeCurrentPage,
         addToBag,

@@ -1,5 +1,5 @@
 import "./Chart.scss";
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,15 +13,8 @@ import {
 import { Line } from "react-chartjs-2";
 import moment from "moment";
 import { IChartInfo } from "../../types";
-import { CryptoContext } from "../../CryptoContext";
 
-export const Chart = ({ id, interval }: { id: string; interval: string }) => {
-  const { getChartInfo, chartInfo } = useContext(CryptoContext);
-
-  useEffect(() => {
-    getChartInfo(id, interval);
-  }, [interval]);
-
+export const Chart = ({ chartInfo }: { chartInfo: IChartInfo[] }) => {
   ChartJS.register(
     CategoryScale,
     LinearScale,

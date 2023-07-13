@@ -1,32 +1,31 @@
-import { useContext } from "react";
 import { ICryptoInfo } from "../../types";
 import { ControlBtn } from "../ControlBtn";
 import "./Table.scss";
-import { CryptoContext } from "../../CryptoContext";
 import { useNavigate } from "react-router-dom";
-import { ModalAddCrypto } from "../modals";
 
-export const Table = () => {
-  const {
-    cryptos,
-    isShowCryptoModal,
-    selectedCrypto,
-    toggleCryptoModal,
-    getSelectedCrypto,
-  } = useContext(CryptoContext);
-
+export const Table = ({
+  cryptos,
+  getSelectedCrypto,
+  toggleModal,
+}: {
+  cryptos: ICryptoInfo[];
+  getSelectedCrypto: Function;
+  toggleModal: Function;
+}) => {
   const navigate = useNavigate();
 
-  const handleControlBtn = (e: any, selectedCrypto: string) => {
+  const handleControlBtn = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    selectedCrypto: string
+  ) => {
     e.stopPropagation();
-    toggleCryptoModal(true);
+    toggleModal(true);
     getSelectedCrypto(selectedCrypto);
   };
 
   return (
     <table className="table">
       <thead className="table-header">
-        {isShowCryptoModal && <ModalAddCrypto crypto={selectedCrypto} />}
         <tr className="table-header__line">
           <th className="table-header__column">rank</th>
           <th className="table-header__column">name</th>
@@ -67,7 +66,7 @@ export const Table = () => {
               {
                 <ControlBtn
                   action="add"
-                  onClick={(e: any) => handleControlBtn(e, el.id)}
+                  onClick={(e) => handleControlBtn(e, el.id)}
                 />
               }
             </td>

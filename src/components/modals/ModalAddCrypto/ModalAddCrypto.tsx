@@ -1,18 +1,23 @@
 import "./ModalAddCrypto.scss";
 import { ICryptoInfo } from "../../../types";
-import { useContext, useState } from "react";
 import { ControlBtn } from "../../ControlBtn";
-import { CryptoContext } from "../../../CryptoContext";
+import { ChangeEvent, useState } from "react";
 
-export const ModalAddCrypto = ({ crypto }: { crypto: ICryptoInfo }) => {
-  const { toggleCryptoModal, addToBag } = useContext(CryptoContext);
-
-  const [quantity, setQuantity] = useState(0);
+export const ModalAddCrypto = ({
+  crypto,
+  toggleModal,
+  addToBag,
+}: {
+  crypto: ICryptoInfo;
+  toggleModal: Function;
+  addToBag: Function;
+}) => {
+  const [quantity, setQuantity] = useState("0");
 
   const handleAddCryptoToBag = () => {
     const cryptoBag = { ...crypto, quantity };
     addToBag(cryptoBag);
-    toggleCryptoModal(false);
+    toggleModal(false);
   };
 
   return (
@@ -32,17 +37,19 @@ export const ModalAddCrypto = ({ crypto }: { crypto: ICryptoInfo }) => {
               type="number"
               min="0"
               value={quantity}
-              onChange={(e: any) => setQuantity(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setQuantity(e.target.value)
+              }
             />
           </label>
           <span className="modal-crypto-info__result-price">
-            Result price: {(quantity * +crypto.priceUsd).toFixed(3)} $
+            Result price: {(+quantity * +crypto.priceUsd).toFixed(3)} $
           </span>
         </div>
         <div className="modal-crypto__buttons">
           <button
             className="modal-crypto__close-btn"
-            onClick={() => toggleCryptoModal(false)}
+            onClick={() => toggleModal(false)}
           >
             Close
           </button>

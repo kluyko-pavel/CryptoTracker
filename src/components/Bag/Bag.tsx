@@ -1,12 +1,14 @@
-import { useContext } from "react";
 import { BagIcon } from "../icons";
 import "./Bag.scss";
-import { CryptoContext } from "../../CryptoContext";
 import { ICryptoInfo } from "../../types";
 
-export const Bag = () => {
-  const { cryptos, bag } = useContext(CryptoContext);
-
+export const Bag = ({
+  cryptos,
+  bag,
+}: {
+  cryptos: ICryptoInfo[];
+  bag: ICryptoInfo[];
+}) => {
   const checkPriceDifference = () => {
     const currentBagPrice = bag.reduce(
       (acc, el) =>

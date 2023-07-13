@@ -33,3 +33,17 @@ export interface IChartInfo {
   time: number;
   date: string;
 }
+
+export interface ICryptoContextProps {
+  selectedCrypto: ICryptoInfo;
+  cryptos: ICryptoInfo[];
+  currentPage: number;
+  isLoading: boolean;
+  chartInfo: IChartInfo[];
+  bag: ICryptoInfo[];
+  changeCurrentPage: (currentPage: number) => void;
+  addToBag: (crypto: ICryptoInfo) => void;
+  removeFromBag: (crypto: ICryptoInfo) => void;
+  getSelectedCrypto: (id: string) => void;
+  getChartInfo: (id: string, interval: string) => void;
+}

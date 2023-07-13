@@ -1,25 +1,27 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CryptoProvider } from "./CryptoContext";
+import { CryptoContext } from "./CryptoContext";
 import "./config.scss";
 import { MainPage, SelectedCryptoPage } from "./pages";
-import { MainHeader } from "./components";
+import { MainFooter, MainHeader } from "./components";
+import { useContext } from "react";
 
 function App() {
+  const { cryptos, bag, removeFromBag } = useContext(CryptoContext);
+
   return (
     <BrowserRouter>
-      <CryptoProvider>
-        <div className="app">
-          <MainHeader />
-          <div className="main-content">
-            <Routes>
-              <Route path="/">
-                <Route index element={<MainPage />} />
-                <Route path=":cryptoId" element={<SelectedCryptoPage />} />
-              </Route>
-            </Routes>
-          </div>
+      <div className="app">
+        <MainHeader cryptos={cryptos} bag={bag} removeFromBag={removeFromBag} />
+        <div className="main-content">
+          <Routes>
+            <Route path="/">
+              <Route index element={<MainPage />} />
+              <Route path=":cryptoId" element={<SelectedCryptoPage />} />
+            </Route>
+          </Routes>
         </div>
-      </CryptoProvider>
+        <MainFooter />
+      </div>
     </BrowserRouter>
   );
 }

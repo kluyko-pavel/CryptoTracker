@@ -1,11 +1,13 @@
 import "./Pagination.scss";
 import { LeftArrowIcon, RightArrowIcon } from "../icons";
-import { useContext } from "react";
-import { CryptoContext } from "../../CryptoContext";
 
-export const Pagination = () => {
-  const { currentPage, changeCurrentPage } = useContext(CryptoContext);
-
+export const Pagination = ({
+  currentPage,
+  changeCurrentPage,
+}: {
+  currentPage: number;
+  changeCurrentPage: Function;
+}) => {
   const handleSwitchNextPage = () => {
     changeCurrentPage(currentPage + 1);
   };

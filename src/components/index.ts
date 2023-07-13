@@ -5,3 +5,5 @@ export * from "./Pagination";
 export * from "./Chart";
 export * from "./modals";
 export * from "./Bag";
+export * from "./MainFooter";
+export * from "./DropDownList";
