@@ -8,3 +8,4 @@ export * from "./Bag";
 export * from "./MainFooter";
 export * from "./DropDownList";
 export * from "./BurgerMenu";
+export * from "./Loader";

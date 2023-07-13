@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ModalAddCrypto, Pagination, Table } from "../../components";
+import { Loader, ModalAddCrypto, Pagination, Table } from "../../components";
 import "./MainPage.scss";
 import { CryptoContext } from "../../CryptoContext";
 
@@ -9,6 +9,7 @@ export const MainPage = () => {
     cryptos,
     selectedCrypto,
     currentPage,
+    isLoading,
     changeCurrentPage,
     addToBag,
     getSelectedCrypto,
@@ -16,24 +17,28 @@ export const MainPage = () => {
 
   return (
     <section className="main-page">
-      <div className="container">
-        {isShowCryptoModal && (
-          <ModalAddCrypto
-            crypto={selectedCrypto}
-            addToBag={addToBag}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="container">
+          {isShowCryptoModal && (
+            <ModalAddCrypto
+              crypto={selectedCrypto}
+              addToBag={addToBag}
+              toggleModal={setIsShowCryptoModal}
+            />
+          )}
+          <Table
+            cryptos={cryptos}
+            getSelectedCrypto={getSelectedCrypto}
             toggleModal={setIsShowCryptoModal}
           />
-        )}
-        <Table
-          cryptos={cryptos}
-          getSelectedCrypto={getSelectedCrypto}
-          toggleModal={setIsShowCryptoModal}
-        />
-        <Pagination
-          currentPage={currentPage}
-          changeCurrentPage={changeCurrentPage}
-        />
-      </div>
+          <Pagination
+            currentPage={currentPage}
+            changeCurrentPage={changeCurrentPage}
+          />
+        </div>
+      )}
     </section>
   );
 };
