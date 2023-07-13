@@ -1,4 +1,33 @@
 .chart {
-  width: 768px;
+  width: 720px;
   height: 360px;
+}
+
+@media (max-width: 800px) {
+  .chart {
+    margin-top: 2rem;
+    width: 600px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .chart {
+    width: 500px;
+    height: 250px;
+  }
+}
+
+@media (max-width: 520px) {
+  .chart {
+    width: 400px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 450px) {
+  .chart {
+    width: 320px;
+    height: 160px;
+  }
 }

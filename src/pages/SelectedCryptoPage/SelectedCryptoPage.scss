@@ -20,6 +20,7 @@
     background-color: $secondary-clr;
     border-radius: 10px;
     max-height: 210px;
+    max-width: 280px;
     padding: 20px;
     list-style-type: none;
     display: flex;
@@ -31,5 +32,27 @@
   }
   &__parameters-param span {
     color: #fff;
+  }
+}
+
+@media (max-width: 1080px) {
+  .selected-page-info {
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    &__parameters {
+      align-self: flex-start;
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .selected-page-tools {
+    align-items: flex-start;
+  }
+  .selected-page-tools-main {
+    gap: 15px;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

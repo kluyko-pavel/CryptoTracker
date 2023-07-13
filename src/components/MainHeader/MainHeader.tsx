@@ -5,6 +5,7 @@ import "./MainHeader.scss";
 import { ICryptoInfo } from "../../types";
 import { Bag } from "../Bag";
 import { ModalBagInfo } from "../modals";
+import { BurgerMenu } from "../BurgerMenu";
 
 export const MainHeader = ({
   cryptos,
@@ -59,6 +60,11 @@ export const MainHeader = ({
           >
             <Bag cryptos={cryptos} bag={bag} />
           </button>
+          <BurgerMenu
+            cryptos={cryptos}
+            bag={bag}
+            toggleModal={setIsShowBagModal}
+          />
         </div>
       </div>
     </header>

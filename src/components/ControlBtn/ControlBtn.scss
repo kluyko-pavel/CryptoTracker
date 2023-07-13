@@ -19,3 +19,10 @@
     color: $fall-clr;
   }
 }
+
+@media (max-width: 360px) {
+  .control-btn {
+    width: 20px;
+    height: 20px;
+  }
+}

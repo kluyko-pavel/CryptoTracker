@@ -34,3 +34,19 @@
     }
   }
 }
+
+@media (max-width: 860px) {
+  .main-header {
+    &__bag {
+      display: none;
+    }
+  }
+  .main-header-logo {
+    &__name {
+      font-size: 18px;
+    }
+  }
+  .main-header-top-coins {
+    display: none;
+  }
+}

@@ -7,3 +7,4 @@ export * from "./modals";
 export * from "./Bag";
 export * from "./MainFooter";
 export * from "./DropDownList";
+export * from "./BurgerMenu";
