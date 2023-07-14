@@ -4,23 +4,22 @@ import { fetchChart, fetchCryptos, fetchSelectedCrypto } from "./apiLogic";
 import { getItemInitialState } from "./utils";
 
 export const CryptoContext = createContext<ICryptoContextProps>({
-  selectedCrypto: {} as ICryptoInfo,
-  cryptos: [] as ICryptoInfo[],
+  selectedCrypto: undefined,
+  cryptos: [],
   currentPage: 1,
   isLoading: false,
-  chartInfo: [] as IChartInfo[],
-  bag: [] as ICryptoInfo[],
-  changeCurrentPage: (currentPage: number): void => {},
-  addToBag: (crypto: ICryptoInfo): void => {},
-  removeFromBag: (crypto: ICryptoInfo): void => {},
-  getSelectedCrypto: (id: string): Promise<void> => Promise.resolve(),
-  getChartInfo: (id: string, interval: string): Promise<void> =>
-    Promise.resolve(),
+  chartInfo: [],
+  bag: [],
+  changeCurrentPage: (currentPage: number) => {},
+  addToBag: (crypto: ICryptoInfo) => {},
+  removeFromBag: (crypto: ICryptoInfo) => {},
+  getSelectedCrypto: async (id: string) => {},
+  getChartInfo: async (id: string, interval: string) => {},
 });
 
 export const CryptoProvider = ({ children }: { children: ReactNode }) => {
-  const [selectedCrypto, setSelectedCrypto] = useState<ICryptoInfo>(
-    {} as ICryptoInfo
+  const [selectedCrypto, setSelectedCrypto] = useState<ICryptoInfo | undefined>(
+    undefined
   );
   const [cryptos, setCryptos] = useState<ICryptoInfo[]>([]);
   const [bag, setBag] = useState<ICryptoInfo[]>(getItemInitialState("bag"));

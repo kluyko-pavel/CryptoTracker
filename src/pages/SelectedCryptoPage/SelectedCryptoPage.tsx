@@ -35,6 +35,33 @@ export const SelectedCryptoPage = () => {
     setIsShowCryptoModal(true);
   };
 
+  const parameters = [
+    {
+      label: "Supply:",
+      value: selectedCrypto?.supply,
+    },
+    {
+      label: "Max supply:",
+      value: selectedCrypto?.maxSupply,
+    },
+    {
+      label: "Market Cap:",
+      value: selectedCrypto?.marketCapUsd,
+    },
+    {
+      label: "Volume(24h):",
+      value: selectedCrypto?.volumeUsd24Hr,
+    },
+    {
+      label: "Change(24h):",
+      value: selectedCrypto?.changePercent24Hr,
+    },
+    {
+      label: "Vwap(24h):",
+      value: selectedCrypto?.vwap24Hr,
+    },
+  ];
+
   return (
     <section className="selected-page">
       {isLoading ? (
@@ -51,10 +78,10 @@ export const SelectedCryptoPage = () => {
           <div className="selected-page-tools">
             <div className="selected-page-tools-main">
               <h2 className="selected-page-tools__crypto-name">
-                {selectedCrypto.name}
+                {selectedCrypto?.name}
               </h2>
               <span className="selected-page-tools__price">
-                ${Number(selectedCrypto.priceUsd).toFixed(3)}
+                ${Number(selectedCrypto?.priceUsd).toFixed(3)}
               </span>
               <ControlBtn action="add" onClick={handleControlBtn} />
             </div>
@@ -62,42 +89,27 @@ export const SelectedCryptoPage = () => {
           </div>
           <div className="selected-page-info">
             <ul className="selected-page-info__parameters">
-              <li className="selected-page-info__parameters-param">
-                Supply:{" "}
-                <span> {Number(selectedCrypto.supply).toFixed(3)} $</span>
-              </li>
-              <li className="selected-page-info__parameters-param">
-                Max supply:
-                <span> {Number(selectedCrypto.maxSupply).toFixed(3)} $</span>
-              </li>
-              <li className="selected-page-info__parameters-param">
-                Market Cap:
-                <span> {Number(selectedCrypto.marketCapUsd).toFixed(3)} $</span>
-              </li>
-              <li className="selected-page-info__parameters-param">
-                Volume(24h):
-                <span>
-                  {" "}
-                  {Number(selectedCrypto.volumeUsd24Hr).toFixed(3)} $
-                </span>
-              </li>
-              <li className="selected-page-info__parameters-param">
-                Change(24h):
-                <span
-                  style={{
-                    color:
-                      Number(selectedCrypto.changePercent24Hr) < 0
-                        ? "#ff0000"
-                        : "#3ce221",
-                  }}
+              {parameters.map((parameter, index) => (
+                <li
+                  className="selected-page-info__parameters-param"
+                  key={index}
                 >
-                  {Number(selectedCrypto.changePercent24Hr).toFixed(3)} %
-                </span>
-              </li>
-              <li className="selected-page-info__parameters-param">
-                Vwap(24h):
-                <span>{Number(selectedCrypto.vwap24Hr).toFixed(3)} $</span>
-              </li>
+                  {parameter.label}
+                  <span
+                    style={{
+                      color:
+                        parameter.label === "Change(24h):"
+                          ? Number(parameter.value) < 0
+                            ? "#ff0000"
+                            : "#3ce221"
+                          : "#fff",
+                    }}
+                  >
+                    {Number(parameter.value).toFixed(3)}
+                    {parameter.label === "Change(24h):" ? "%" : "$"}
+                  </span>
+                </li>
+              ))}
             </ul>
             <Chart chartInfo={chartInfo} />
           </div>

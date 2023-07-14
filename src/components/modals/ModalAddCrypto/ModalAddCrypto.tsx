@@ -8,7 +8,7 @@ export const ModalAddCrypto = ({
   toggleModal,
   addToBag,
 }: {
-  crypto: ICryptoInfo;
+  crypto?: ICryptoInfo;
   toggleModal: Function;
   addToBag: Function;
 }) => {
@@ -25,9 +25,9 @@ export const ModalAddCrypto = ({
       <div className="modal-crypto">
         <h2 className="modal-crypto__title">Adding crypto</h2>
         <div className="modal-crypto-info">
-          <span className="modal-crypto-info__name">Name: {crypto.name}</span>
+          <span className="modal-crypto-info__name">Name: {crypto?.name}</span>
           <span className="modal-crypto-info__price">
-            Price: {Number(crypto.priceUsd).toFixed(3)} $
+            Price: {Number(crypto?.priceUsd).toFixed(3)} $
           </span>
           <label className="modal-crypto-info__quantity-text">
             Quantity:
@@ -43,7 +43,8 @@ export const ModalAddCrypto = ({
             />
           </label>
           <span className="modal-crypto-info__result-price">
-            Result price: {(+quantity * +crypto.priceUsd).toFixed(3)} $
+            Result price: {crypto && (+quantity * +crypto?.priceUsd).toFixed(3)}{" "}
+            $
           </span>
         </div>
         <div className="modal-crypto__buttons">

@@ -35,7 +35,7 @@ export interface IChartInfo {
 }
 
 export interface ICryptoContextProps {
-  selectedCrypto: ICryptoInfo;
+  selectedCrypto: ICryptoInfo | undefined;
   cryptos: ICryptoInfo[];
   currentPage: number;
   isLoading: boolean;
