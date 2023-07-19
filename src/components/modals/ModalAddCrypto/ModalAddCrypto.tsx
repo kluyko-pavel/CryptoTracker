@@ -1,7 +1,8 @@
 import "./ModalAddCrypto.scss";
 import { ICryptoInfo } from "../../../types";
 import { ControlBtn } from "../../ControlBtn";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
+import { useClickOutside } from "../../../utils";
 
 export const ModalAddCrypto = ({
   crypto,
@@ -13,16 +14,30 @@ export const ModalAddCrypto = ({
   addToBag: Function;
 }) => {
   const [quantity, setQuantity] = useState("0");
+  const refModal = useRef<any>();
+  const refCloseBtn = useRef<any>();
 
   const handleAddCryptoToBag = () => {
-    const cryptoBag = { ...crypto, quantity };
-    addToBag(cryptoBag);
-    toggleModal(false);
+    if (+quantity) {
+      const cryptoBag = { ...crypto, quantity };
+      addToBag(cryptoBag);
+      toggleModal(false);
+    }
   };
+
+  const handleClickOutside = (e: any) => {
+    if (refCloseBtn.current.contains(e.target)) {
+      return;
+    } else {
+      toggleModal(false);
+    }
+  };
+
+  useClickOutside(refModal, handleClickOutside);
 
   return (
     <div className="modal-wrapper">
-      <div className="modal-crypto">
+      <div className="modal-crypto" ref={refModal}>
         <h2 className="modal-crypto__title">Adding crypto</h2>
         <div className="modal-crypto-info">
           <span className="modal-crypto-info__name">Name: {crypto?.name}</span>
@@ -51,6 +66,7 @@ export const ModalAddCrypto = ({
           <button
             className="modal-crypto__close-btn"
             onClick={() => toggleModal(false)}
+            ref={refCloseBtn}
           >
             Close
           </button>

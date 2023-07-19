@@ -9,7 +9,7 @@ export const LeftArrowIcon = () => {
     >
       <path
         d="M10.06 12L11 11.06L7.94667 8L11 4.94L10.06 4L6.06 8L10.06 12Z"
-        fill="#523bdb"
+        fill="#2669ff"
       />
     </svg>
   );

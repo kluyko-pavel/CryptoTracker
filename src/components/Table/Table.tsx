@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ICryptoInfo } from "../../types";
 import { ControlBtn } from "../ControlBtn";
 import "./Table.scss";
@@ -13,6 +14,7 @@ export const Table = ({
   toggleModal: Function;
 }) => {
   const navigate = useNavigate();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleControlBtn = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -22,6 +24,12 @@ export const Table = ({
     toggleModal(true);
     getSelectedCrypto(selectedCrypto);
   };
+
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  window.addEventListener("resize", handleResize);
 
   return (
     <table className="table">
@@ -33,7 +41,7 @@ export const Table = ({
           <th className="table-header__column">change(24h)</th>
           <th className="table-header__column">volume(24h)</th>
           <th className="table-header__column">supply</th>
-          <th className="table-header__column">add</th>
+          {windowWidth >= 360 && <th className="table-header__column">add</th>}
         </tr>
       </thead>
       <tbody className="table-body">
@@ -46,7 +54,9 @@ export const Table = ({
             <td className="table-body__column">{el.rank}</td>
             <td className="table-body__column">{el.name}</td>
             <td className="table-body__column">
-              {Number(el.priceUsd).toFixed(3)} $
+              {Number(el.priceUsd).toFixed(3) === "0.000"
+                ? "-"
+                : Number(el.priceUsd).toFixed(3) + "$"}
             </td>
             <td
               className="table-body__column"
@@ -62,14 +72,16 @@ export const Table = ({
             <td className="table-body__column">
               {Number(el.supply).toFixed(3)} $
             </td>
-            <td className="table-body__column">
-              {
-                <ControlBtn
-                  action="add"
-                  onClick={(e) => handleControlBtn(e, el.id)}
-                />
-              }
-            </td>
+            {windowWidth >= 360 && (
+              <td className="table-body__column">
+                {
+                  <ControlBtn
+                    action="add"
+                    onClick={(e) => handleControlBtn(e, el.id)}
+                  />
+                }
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

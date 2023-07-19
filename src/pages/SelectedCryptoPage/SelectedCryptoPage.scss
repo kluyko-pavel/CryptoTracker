@@ -3,6 +3,19 @@
 .selected-page {
   padding-top: 1.5rem;
 }
+.selected-page-nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 60px;
+  cursor: pointer;
+  &:hover &__text {
+    color: $primary-clr;
+  }
+  &__text {
+    transition: 0.2s;
+  }
+}
 .selected-page-tools {
   display: flex;
   justify-content: space-between;

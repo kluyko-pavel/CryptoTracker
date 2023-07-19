@@ -9,7 +9,7 @@ export const RightArrowIcon = () => {
     >
       <path
         d="M6.94 4L6 4.94L9.05333 8L6 11.06L6.94 12L10.94 8L6.94 4Z"
-        fill="#523bdb"
+        fill="#2669ff"
       />
     </svg>
   );

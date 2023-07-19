@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.73bebab1.css",
-    "main.js": "/static/js/main.3ab58b0d.js",
+    "main.css": "/static/css/main.3f840d77.css",
+    "main.js": "/static/js/main.861f2a55.js",
     "static/media/SofiaSans-Regular.ttf": "/static/media/SofiaSans-Regular.6d587c9940f9a914bb10.ttf",
     "index.html": "/index.html",
-    "main.73bebab1.css.map": "/static/css/main.73bebab1.css.map",
-    "main.3ab58b0d.js.map": "/static/js/main.3ab58b0d.js.map"
+    "main.3f840d77.css.map": "/static/css/main.3f840d77.css.map",
+    "main.861f2a55.js.map": "/static/js/main.861f2a55.js.map"
   },
   "entrypoints": [
-    "static/css/main.73bebab1.css",
-    "static/js/main.3ab58b0d.js"
+    "static/css/main.3f840d77.css",
+    "static/js/main.861f2a55.js"
   ]
 }

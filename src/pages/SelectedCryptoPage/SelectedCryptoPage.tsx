@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./SelectedCryptoPage.scss";
 import { CryptoContext } from "../../CryptoContext";
 import { useContext, useEffect, useState } from "react";
@@ -9,8 +9,10 @@ import {
   Loader,
   ModalAddCrypto,
 } from "../../components";
+import { LeftArrowIcon } from "../../components/icons";
 
 export const SelectedCryptoPage = () => {
+  const navigate = useNavigate();
   const [isShowCryptoModal, setIsShowCryptoModal] = useState(false);
   const [interval, setInterval] = useState("d1");
   const { cryptoId } = useParams();
@@ -75,13 +77,20 @@ export const SelectedCryptoPage = () => {
               toggleModal={setIsShowCryptoModal}
             />
           )}
+          <nav className="selected-page-nav" onClick={() => navigate(-1)}>
+            <LeftArrowIcon />
+            <span className="selected-page-nav__text">Back</span>
+          </nav>
           <div className="selected-page-tools">
             <div className="selected-page-tools-main">
               <h2 className="selected-page-tools__crypto-name">
                 {selectedCrypto?.name}
               </h2>
               <span className="selected-page-tools__price">
-                ${Number(selectedCrypto?.priceUsd).toFixed(3)}
+                $
+                {Number(selectedCrypto?.priceUsd).toFixed(3) === "0.000"
+                  ? "-"
+                  : Number(selectedCrypto?.priceUsd).toFixed(3) + "$"}
               </span>
               <ControlBtn action="add" onClick={handleControlBtn} />
             </div>
@@ -105,7 +114,9 @@ export const SelectedCryptoPage = () => {
                           : "#fff",
                     }}
                   >
-                    {Number(parameter.value).toFixed(3)}
+                    {Number(parameter.value).toFixed(3) !== "0.000"
+                      ? Number(parameter.value).toFixed(3)
+                      : "-"}
                     {parameter.label === "Change(24h):" ? "%" : "$"}
                   </span>
                 </li>
